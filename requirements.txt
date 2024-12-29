@@ -18,3 +18,4 @@ py7zr
 dill
 gunicorn==20.1.0
 python-multipart
+gdown
