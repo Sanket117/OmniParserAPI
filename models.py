@@ -17,14 +17,14 @@ def load_models(device='cpu'):
     processor = AutoProcessor.from_pretrained(
         "microsoft/Florence-2-base", 
         trust_remote_code=True,
-        use_auth_token=False
-    ).to(device)
+        token=False
+    )
     
     caption_model = AutoModelForCausalLM.from_pretrained(
         "weights/icon_caption_florence",
         torch_dtype=torch.float32,
         trust_remote_code=True,
-        use_auth_token=False,
+        token=False,
         local_files_only=True,
         pretrained_model_name_or_path=MODEL_CONFIGS['florence']['local_path']
     ).to(device)
