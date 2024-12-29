@@ -21,7 +21,7 @@ def load_models(device='cpu'):
     ).to(device)
     
     caption_model = AutoModelForCausalLM.from_pretrained(
-        "microsoft/OmniParser/icon_caption_florence",
+        "weights/icon_caption_florence",
         torch_dtype=torch.float32,
         trust_remote_code=True,
         use_auth_token=False,
