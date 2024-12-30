@@ -16,6 +16,8 @@ MODEL_CONFIGS = {
         'pytorch_model_path': 'weights/pytorch_model.bin'  # Local path to save pytorch_model.bin
     }
 }
+import gdown
+import os
 import time
 
 def download_model_from_google_drive(url, output_path, retries=3, delay=5):
@@ -29,8 +31,13 @@ def download_model_from_google_drive(url, output_path, retries=3, delay=5):
             try:
                 print(f"Downloading {output_path} (Attempt {attempt + 1}/{retries})...")
                 gdown.download(download_url, output_path, quiet=False)
-                print(f"Model downloaded to {output_path}")
-                return  # Success, exit the function
+
+                # Check if the file exists and has content
+                if os.path.getsize(output_path) > 0:
+                    print(f"Model downloaded to {output_path}")
+                    return  # Success, exit the function
+                else:
+                    print(f"Downloaded file is empty. Retrying...")
             except Exception as e:
                 print(f"Error downloading model (Attempt {attempt + 1}/{retries}): {e}")
                 if attempt < retries - 1:
@@ -40,4 +47,5 @@ def download_model_from_google_drive(url, output_path, retries=3, delay=5):
                     print(f"Max retries reached. Download failed.")
     except Exception as e:
         print(f"Error downloading model: {e}")
+
 
