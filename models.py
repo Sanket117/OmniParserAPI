@@ -12,21 +12,17 @@ def load_models(device='cpu'):
     # Set default dtype for torch
     torch.set_default_dtype(torch.float32)
     
+    # Load YOLO model
     yolo_model = YOLO(MODEL_CONFIGS['yolo']['local_path']).to(device)
     
-    processor = AutoProcessor.from_pretrained(
-        "microsoft/Florence-2-base", 
-        trust_remote_code=True,
-        token=False
-    )
+    # Load the processor (Florence2Processor) from a local directory or Hugging Face model
+    processor = AutoProcessor.from_pretrained(MODEL_CONFIGS['florence']['local_path'])  # Correct path for Florence model
     
+    # Load the caption model (AutoModelForCausalLM)
     caption_model = AutoModelForCausalLM.from_pretrained(
-        "weights/icon_caption_florence",
+        MODEL_CONFIGS['florence']['local_path'],  # Path for local Florence model
         torch_dtype=torch.float32,
-        trust_remote_code=True,
-        token=False,
-        local_files_only=True,
-        pretrained_model_name_or_path=MODEL_CONFIGS['florence']['local_path']
+        local_files_only=True  # Ensures only local files are loaded
     ).to(device)
     
     return {
