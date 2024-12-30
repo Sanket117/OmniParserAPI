@@ -15,14 +15,18 @@ def load_models(device='cpu'):
     # Load YOLO model
     yolo_model = YOLO(MODEL_CONFIGS['yolo']['local_path']).to(device)
     
-    # Load the processor (Florence2Processor) from a local directory or Hugging Face model
-    processor = AutoProcessor.from_pretrained(MODEL_CONFIGS['florence']['local_path'])  # Correct path for Florence model
+    # Load the processor with the trust_remote_code argument
+    processor = AutoProcessor.from_pretrained(
+        MODEL_CONFIGS['florence']['local_path'],
+        trust_remote_code=True  # Allow custom code to run
+    )
     
-    # Load the caption model (AutoModelForCausalLM)
+    # Load the caption model with the trust_remote_code argument
     caption_model = AutoModelForCausalLM.from_pretrained(
-        MODEL_CONFIGS['florence']['local_path'],  # Path for local Florence model
+        MODEL_CONFIGS['florence']['local_path'],  # Path to directory
         torch_dtype=torch.float32,
-        local_files_only=True  # Ensures only local files are loaded
+        local_files_only=True,  # Ensures only local files are loaded
+        trust_remote_code=True  # Allow custom code to run
     ).to(device)
     
     return {
