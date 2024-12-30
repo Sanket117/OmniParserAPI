@@ -16,48 +16,28 @@ MODEL_CONFIGS = {
         'pytorch_model_path': 'weights/pytorch_model.bin'  # Local path to save pytorch_model.bin
     }
 }
+import time
 
-# Function to download the model
-def download_model_from_google_drive(url, output_path):
+def download_model_from_google_drive(url, output_path, retries=3, delay=5):
     try:
         # Extract the file ID from the URL
         file_id = url.split('/d/')[1].split('/')[0]
         download_url = f'https://drive.google.com/uc?export=download&id={file_id}'
         
-        # Download the model using gdown
-        print(f"Downloading {output_path}...")
-        gdown.download(download_url, output_path, quiet=False)
-        print(f"Model downloaded to {output_path}")
+        # Retry logic for downloading the model
+        for attempt in range(retries):
+            try:
+                print(f"Downloading {output_path} (Attempt {attempt + 1}/{retries})...")
+                gdown.download(download_url, output_path, quiet=False)
+                print(f"Model downloaded to {output_path}")
+                return  # Success, exit the function
+            except Exception as e:
+                print(f"Error downloading model (Attempt {attempt + 1}/{retries}): {e}")
+                if attempt < retries - 1:
+                    print(f"Retrying in {delay} seconds...")
+                    time.sleep(delay)
+                else:
+                    print(f"Max retries reached. Download failed.")
     except Exception as e:
         print(f"Error downloading model: {e}")
 
-# Check if the YOLO model file exists, if not, download it
-yolo_model_url = MODEL_CONFIGS['yolo']['drive_url']
-yolo_model_path = MODEL_CONFIGS['yolo']['local_path']
-
-if not os.path.exists(yolo_model_path):
-    download_model_from_google_drive(yolo_model_url, yolo_model_path)
-else:
-    print(f"YOLO model already exists at {yolo_model_path}")
-
-# Check if the Florence PyTorch model file exists, if not, download it
-florence_model_url = MODEL_CONFIGS['florence']['pytorch_model_url']
-florence_model_path = MODEL_CONFIGS['florence']['pytorch_model_path']
-
-if not os.path.exists(florence_model_path):
-    download_model_from_google_drive(florence_model_url, florence_model_path)
-else:
-    print(f"Florence model already exists at {florence_model_path}")
-
-# Check the downloaded file sizes
-if os.path.exists(yolo_model_path):
-    print(f"YOLO model file exists: {yolo_model_path}")
-    print(f"YOLO model file size: {os.path.getsize(yolo_model_path)} bytes")
-else:
-    print(f"YOLO model file does not exist: {yolo_model_path}")
-
-if os.path.exists(florence_model_path):
-    print(f"Florence model file exists: {florence_model_path}")
-    print(f"Florence model file size: {os.path.getsize(florence_model_path)} bytes")
-else:
-    print(f"Florence model file does not exist: {florence_model_path}")

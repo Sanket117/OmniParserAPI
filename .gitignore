@@ -1,4 +1,5 @@
-
+weights\best.pt
+weights\icon_caption_florence\model.safetensors3ksefm62.part
 venv
 # Python
 __pycache__/
