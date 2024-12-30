@@ -16,7 +16,7 @@ def load_models(device='cpu'):
     yolo_model = YOLO(MODEL_CONFIGS['yolo']['local_path']).to(device)
     
     # Load the processor with the trust_remote_code argument
-    processor = AutoProcessor.from_pretrained('weights/icon_caption_florence')
+    processor = AutoProcessor.from_pretrained('weights')
     
     # Load the caption model with the trust_remote_code argument
     caption_model = AutoModelForCausalLM.from_pretrained(
