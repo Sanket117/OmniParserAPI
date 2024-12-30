@@ -8,7 +8,7 @@ MODEL_CONFIGS = {
         'local_path': 'weights/best.pt'
     },
     'florence': {
-        'drive_url': 'https://drive.google.com/uc?id=1hUCqZ3X8mcM-KcwWFjcsFg7PA0hUvE3k',
+        'drive_url': 'https://drive.google.com/file/d/1ZubRSK_Y34_M8Mx8E1pcxbtouokD3IMG',
         'local_path': 'weights/icon_caption_florence/model.safetensors',
         
         # Define the URL for the PyTorch model file
