@@ -16,11 +16,11 @@ def load_models(device='cpu'):
     yolo_model = YOLO(MODEL_CONFIGS['yolo']['local_path']).to(device)
     
     # Load the processor with the trust_remote_code argument
-    processor = AutoProcessor.from_pretrained('weights')
+    processor = AutoProcessor.from_pretrained('weights', trust_remote_code=True)
     
     # Load the caption model with the trust_remote_code argument
     caption_model = AutoModelForCausalLM.from_pretrained(
-        MODEL_CONFIGS['florence']['local_path'],  # Path to directory
+        'weights/icon_caption_florence',  # Path to directory
         torch_dtype=torch.float32,
         local_files_only=True,  # Ensures only local files are loaded
         trust_remote_code=True  # Allow custom code to run
