@@ -12,7 +12,7 @@ MODEL_CONFIGS = {
         'local_path': 'weights/icon_caption_florence/model.safetensors',
         
         # Define the URL for the PyTorch model file
-        'pytorch_model_url': 'https://drive.google.com/file/d/1PiNJSTORmAbaOMpOv_wa6djuVLbN3gh9/view?usp=sharing',
+        'pytorch_model_url': 'https://drive.google.com/file/d/1PiNJSTORmAbaOMpOv_wa6djuVLbN3gh9',
         'pytorch_model_path': 'weights/pytorch_model.bin'  # Local path to save pytorch_model.bin
     }
 }
