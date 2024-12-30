@@ -4,7 +4,7 @@ import os
 # Define the MODEL_CONFIGS dictionary
 MODEL_CONFIGS = {
     'yolo': {
-        'drive_url': 'https://drive.google.com/uc?id=1p-Y7rd0FfjNnv_jewCi7ZjXH3T-qtyAa',
+        'drive_url': 'https://drive.google.com/file/d/1-84XgKFTiM17IRKfEluDGko0gVlSvVGY',
         'local_path': 'weights/best.pt'
     },
     'florence': {
@@ -12,7 +12,7 @@ MODEL_CONFIGS = {
         'local_path': 'weights/icon_caption_florence/model.safetensors',
         
         # Define the URL for the PyTorch model file
-        'pytorch_model_url': 'https://drive.google.com/file/d/1PiNJSTORmAbaOMpOv_wa6djuVLbN3gh9',
+        'pytorch_model_url': 'https://drive.google.com/file/d/1RZcaDSfM_o7qxp7wFJoo6gt-eCrK1J3h',
         'pytorch_model_path': 'weights/pytorch_model.bin'  # Local path to save pytorch_model.bin
     }
 }
